@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect.isuccess - Téléchargement</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #7C3AED, #A78BFA);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            color: #1F2937;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .version-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ECFDF5;
+            color: #059669;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        
+        .version-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .qr-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #F9FAFB;
+            border-radius: 16px;
+        }
+        
+        .qr-section img {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+        }
+        
+        .qr-section p {
+            margin-top: 12px;
+            color: #6B7280;
+            font-size: 13px;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 16px;
+            background: #7C3AED;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        
+        .download-btn:hover {
+            background: #6D28D9;
+            transform: translateY(-2px);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        
+        .info-item {
+            background: #F9FAFB;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .info-item .value {
+            color: #7C3AED;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .info-item .label {
+            color: #6B7280;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        .footer {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #E5E7EB;
+            color: #9CA3AF;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">E</div>
+        <h1>EduConnect.isuccess</h1>
+        <p class="subtitle">Suivi scolaire simplifié</p>
+        
+        <div class="version-badge">
+            <span class="dot"></span>
+            <span id="version-text">Chargement...</span>
+        </div>
+        
+        <!-- QR Code -->
+        <div class="qr-section">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://educonnect.isuccess.com/download&color=7C3AED" 
+                 alt="QR Code EduConnect" id="qr-image">
+            <p>Scannez ce code pour télécharger</p>
+        </div>
+        
+        <a href="#" id="download-link" class="download-btn">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            Télécharger l'APK
+        </a>
+        
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="value" id="file-size">--</div>
+                <div class="label">Taille</div>
+            </div>
+            <div class="info-item">
+                <div class="value" id="download-count">--</div>
+                <div class="label">Téléchargements</div>
+            </div>
+            <div class="info-item">
+                <div class="value">Android 5+</div>
+                <div class="label">Compatibilité</div>
+            </div>
+            <div class="info-item">
+                <div class="value">100% Gratuit</div>
+                <div class="label">Prix</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 EduConnect.isuccess • Côte d'Ivoire</p>
+            <p style="margin-top:4px">Développé par Bongai Henri</p>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - Remplace par tes vraies valeurs Supabase
+        const SUPABASE_URL = 'https://vethtvfdkywbzxzwckdl.supabase.co';
+        const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // Ta clé anon
+
+        async function loadVersionInfo() {
+            try {
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&is_active=eq.true&order=version_code.desc&limit=1`,
+                    {
+                        headers: {
+                            'apikey': SUPABASE_ANON,
+                            'Authorization': `Bearer ${SUPABASE_ANON}`
+                        }
+                    }
+                );
+                const data = await response.json();
+                
+                if (data && data.length > 0) {
+                    const version = data[0];
+                    document.getElementById('version-text').textContent = 
+                        `v${version.version_name} • Dernière version`;
+                    document.getElementById('download-link').href = version.apk_url;
+                    document.getElementById('file-size').textContent = 
+                        formatBytes(version.file_size_bytes);
+                    document.getElementById('download-count').textContent = 
+                        version.download_count.toLocaleString();
+                    
+                    // Mettre à jour le QR code avec l'URL réelle
+                    const qrUrl = encodeURIComponent(version.apk_url);
+                    document.getElementById('qr-image').src = 
+                        `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrUrl}&color=7C3AED`;
+                } else {
+                    document.getElementById('version-text').textContent = 'v2.0.0 • Dernière version';
+                    document.getElementById('download-link').href = '#';
+                }
+            } catch (e) {
+                console.error('Erreur:', e);
+                document.getElementById('version-text').textContent = 'v2.0.0 • Dernière version';
+            }
+        }
+        
+        function formatBytes(bytes) {
+            if (!bytes) return '--';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+        
+        // Charger les infos au démarrage
+        loadVersionInfo();
+    </script>
+</body>
+</html>
