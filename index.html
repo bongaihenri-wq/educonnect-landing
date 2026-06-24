@@ -74,9 +74,22 @@
             animation: pulse 2s infinite;
         }
         
+        .version-badge .loading {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #059669;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         .qr-section {
@@ -122,6 +135,12 @@
             transform: translateY(-2px);
         }
         
+        .download-btn:disabled {
+            background: #C4B5FD;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -155,6 +174,60 @@
             color: #9CA3AF;
             font-size: 12px;
         }
+        
+        .changelog {
+            text-align: left;
+            margin: 20px 0;
+            padding: 16px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            display: none;
+        }
+        
+        .changelog.visible {
+            display: block;
+        }
+        
+        .changelog h3 {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .changelog ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .changelog li {
+            font-size: 13px;
+            color: #6B7280;
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .changelog li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: bold;
+        }
+        
+        .error-message {
+            background: #FEF2F2;
+            color: #DC2626;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin: 16px 0;
+            display: none;
+        }
+        
+        .error-message.visible {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -163,15 +236,20 @@
         <h1>EduConnect.isuccess</h1>
         <p class="subtitle">Suivi scolaire simplifié</p>
         
-        <div class="version-badge">
-            <span class="dot"></span>
+        <div class="version-badge" id="version-badge">
+            <span class="loading" id="version-dot"></span>
             <span id="version-text">Chargement...</span>
+        </div>
+        
+        <div class="error-message" id="error-message">
+            Impossible de récupérer les informations. Veuillez réessayer.
         </div>
         
         <!-- QR Code -->
         <div class="qr-section">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://educonnect.isuccess.com/download&color=7C3AED" 
-                 alt="QR Code EduConnect" id="qr-image">
+            <img src="https://via.placeholder.com/200x200/7C3AED/FFFFFF?text=EduConnect" 
+                 alt="QR Code EduConnect" 
+                 id="qr-image">
             <p>Scannez ce code pour télécharger</p>
         </div>
         
@@ -179,8 +257,13 @@
             <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
             </svg>
-            Télécharger l'APK
+            <span id="download-text">Télécharger l'APK</span>
         </a>
+        
+        <div class="changelog" id="changelog">
+            <h3 id="changelog-title">Nouveautés</h3>
+            <ul id="changelog-list"></ul>
+        </div>
         
         <div class="info-grid">
             <div class="info-item">
@@ -197,23 +280,66 @@
             </div>
             <div class="info-item">
                 <div class="value">100% Gratuit</div>
-                <div class="label">Prix</div>
+                <div class="label">Essai 7 jours</div>
             </div>
         </div>
         
         <div class="footer">
-            <p>© 2026 EduConnect.isuccess • Côte d'Ivoire</p>
+            <p>© 2026 EduConnect.isuccess</p>
             <p style="margin-top:4px">Développé par Bongai Henri</p>
+            <p style="margin-top:4px">Contact: support@educonnect.isuccess.com</p>
         </div>
     </div>
 
     <script>
-        // Configuration - Remplace par tes vraies valeurs Supabase
+        // ============================================
+        // CONFIGURATION - REMPLACE PAR TA VRAIE CLÉ
+        // ============================================
         const SUPABASE_URL = 'https://vethtvfdkywbzxzwckdl.supabase.co';
-        const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZldGh0dmZka3l3Ynp4endja2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjU2ODQsImV4cCI6MjA5MTMwMTY4NH0.JFvt2Jmv_W0XVnVI0fNKRjm5rxePjzuSO1txTY-8nIE'; // Ta clé anon
+        const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZldGh0dmZka3l3Ynp4endja2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjU2ODQsImV4cCI6MjA5MTMwMTY4NH0.JFvt2Jmv_W0XVnVI0fNKRjm5rxePjzuSO1txTY-8nIE'; // ← REMPLACE ICI
+
+        // ============================================
+        // FONCTIONS
+        // ============================================
+        
+        function formatBytes(bytes) {
+            if (!bytes) return '--';
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function parseChangelog(text) {
+            if (!text) return [];
+            return text.split('\n').filter(line => line.trim());
+        }
+
+        function showError() {
+            document.getElementById('error-message').classList.add('visible');
+            document.getElementById('version-text').textContent = 'v2.0.0';
+            document.getElementById('version-dot').className = 'dot';
+            document.getElementById('download-link').href = '#';
+            document.getElementById('download-link').classList.add('disabled');
+        }
 
         async function loadVersionInfo() {
+            const versionText = document.getElementById('version-text');
+            const versionDot = document.getElementById('version-dot');
+            const downloadLink = document.getElementById('download-link');
+            const downloadText = document.getElementById('download-text');
+            const qrImage = document.getElementById('qr-image');
+            const fileSize = document.getElementById('file-size');
+            const downloadCount = document.getElementById('download-count');
+            const changelog = document.getElementById('changelog');
+            const changelogList = document.getElementById('changelog-list');
+            const changelogTitle = document.getElementById('changelog-title');
+
             try {
+                // Vérifier que la clé a été remplacée
+                if (SUPABASE_ANON.includes('...')) {
+                    throw new Error('Clé Supabase non configurée');
+                }
+
                 const response = await fetch(
                     `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&is_active=eq.true&order=version_code.desc&limit=1`,
                     {
@@ -223,40 +349,49 @@
                         }
                     }
                 );
-                const data = await response.json();
-                
-                if (data && data.length > 0) {
-                    const version = data[0];
-                    document.getElementById('version-text').textContent = 
-                        `v${version.version_name} • Dernière version`;
-                    document.getElementById('download-link').href = version.apk_url;
-                    document.getElementById('file-size').textContent = 
-                        formatBytes(version.file_size_bytes);
-                    document.getElementById('download-count').textContent = 
-                        version.download_count.toLocaleString();
-                    
-                    // Mettre à jour le QR code avec l'URL réelle
-                    const qrUrl = encodeURIComponent(version.apk_url);
-                    document.getElementById('qr-image').src = 
-                        `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrUrl}&color=7C3AED`;
-                } else {
-                    document.getElementById('version-text').textContent = 'v2.0.0 • Dernière version';
-                    document.getElementById('download-link').href = '#';
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
                 }
-            } catch (e) {
-                console.error('Erreur:', e);
-                document.getElementById('version-text').textContent = 'v2.0.0 • Dernière version';
+
+                const data = await response.json();
+
+                if (!data || data.length === 0) {
+                    throw new Error('Aucune version trouvée');
+                }
+
+                const version = data[0];
+
+                // Mettre à jour l'UI
+                versionText.textContent = `v${version.version_name} • Dernière version`;
+                versionDot.className = 'dot';
+                
+                downloadLink.href = version.apk_url;
+                downloadText.textContent = `Télécharger v${version.version_name}`;
+                
+                fileSize.textContent = formatBytes(version.file_size_bytes);
+                downloadCount.textContent = version.download_count.toLocaleString();
+
+                // Mettre à jour le QR code
+                const qrUrl = encodeURIComponent(version.apk_url);
+                qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrUrl}&color=7C3AED`;
+
+                // Afficher le changelog
+                const changes = parseChangelog(version.changelog);
+                if (changes.length > 0) {
+                    changelogList.innerHTML = changes.map(c => `<li>${c.replace(/^[-*]\s*/, '')}</li>`).join('');
+                    changelogTitle.textContent = `Nouveautés v${version.version_name}`;
+                    changelog.classList.add('visible');
+                }
+
+            } catch (error) {
+                console.error('Erreur chargement version:', error);
+                showError();
             }
         }
-        
-        function formatBytes(bytes) {
-            if (!bytes) return '--';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
-            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-        }
-        
-        // Charger les infos au démarrage
-        loadVersionInfo();
+
+        // Charger au démarrage
+        document.addEventListener('DOMContentLoaded', loadVersionInfo);
     </script>
 </body>
 </html>
