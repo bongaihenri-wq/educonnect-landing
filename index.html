@@ -127,7 +127,7 @@
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
         
         .download-btn:hover {
@@ -139,6 +139,28 @@
             background: #C4B5FD;
             cursor: not-allowed;
             transform: none;
+        }
+        
+        .download-btn.secondary {
+            background: #F3E8FF;
+            color: #7C3AED;
+            font-size: 14px;
+            padding: 12px;
+        }
+        
+        .download-btn.secondary:hover {
+            background: #EDE9FE;
+        }
+        
+        .abi-badge {
+            display: inline-block;
+            background: #F3E8FF;
+            color: #7C3AED;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
         
         .info-grid {
@@ -228,6 +250,77 @@
         .error-message.visible {
             display: block;
         }
+        
+        /* Section versions alternatives */
+        .other-versions {
+            margin-top: 16px;
+            padding: 16px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            display: none;
+        }
+        
+        .other-versions.visible {
+            display: block;
+        }
+        
+        .other-versions h4 {
+            font-size: 13px;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+        
+        .version-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            margin: 6px 0;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #374151;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        
+        .version-option:hover {
+            background: #F3E8FF;
+        }
+        
+        .version-option .abi-name {
+            font-weight: 600;
+        }
+        
+        .version-option .abi-size {
+            color: #6B7280;
+            font-size: 12px;
+        }
+        
+        .version-option .abi-recommended {
+            background: #ECFDF5;
+            color: #059669;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .toggle-versions {
+            background: none;
+            border: none;
+            color: #7C3AED;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 12px;
+        }
+        
+        .auto-detect-info {
+            font-size: 12px;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -245,6 +338,11 @@
             Impossible de récupérer les informations. Veuillez réessayer.
         </div>
         
+        <!-- Détection automatique -->
+        <div class="auto-detect-info" id="auto-detect-info" style="display: none;">
+            Détection automatique : <span id="detected-abi">--</span>
+        </div>
+        
         <!-- QR Code -->
         <div class="qr-section">
             <img src="https://via.placeholder.com/200x200/7C3AED/FFFFFF?text=EduConnect" 
@@ -253,12 +351,24 @@
             <p>Scannez ce code pour télécharger</p>
         </div>
         
+        <!-- Bouton principal (version détectée) -->
         <a href="#" id="download-link" class="download-btn">
             <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
             </svg>
             <span id="download-text">Télécharger l'APK</span>
         </a>
+        
+        <!-- Bouton fallback -->
+        <button class="toggle-versions" id="toggle-versions" onclick="toggleOtherVersions()" style="display: none;">
+            → Voir toutes les versions disponibles
+        </button>
+        
+        <!-- Versions alternatives (caché par défaut) -->
+        <div class="other-versions" id="other-versions">
+            <h4>Toutes les versions :</h4>
+            <div id="versions-list"></div>
+        </div>
         
         <div class="changelog" id="changelog">
             <h3 id="changelog-title">Nouveautés</h3>
@@ -293,17 +403,17 @@
 
     <script>
         // ============================================
-        // CONFIGURATION - REMPLACE PAR TA VRAIE CLÉ
+        // CONFIGURATION SUPABASE
         // ============================================
         const SUPABASE_URL = 'https://vethtvfdkywbzxzwckdl.supabase.co';
-        const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZldGh0dmZka3l3Ynp4endja2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjU2ODQsImV4cCI6MjA5MTMwMTY4NH0.JFvt2Jmv_W0XVnVI0fNKRjm5rxePjzuSO1txTY-8nIE'; // ← REMPLACE ICI
+        const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZldGh0dmZka3l3Ynp4endja2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjU2ODQsImV4cCI6MjA5MTMwMTY4NH0.JFvt2Jmv_W0XVnVI0fNKRjm5rxePjzuSO1txTY-8nIE';
 
         // ============================================
-        // FONCTIONS
+        // FONCTIONS UTILITAIRES
         // ============================================
         
         function formatBytes(bytes) {
-            if (!bytes) return '--';
+            if (!bytes || bytes === 0) return '--';
             if (bytes < 1024) return bytes + ' B';
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
             return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
@@ -322,6 +432,49 @@
             document.getElementById('download-link').classList.add('disabled');
         }
 
+        // ============================================
+        // DÉTECTION AUTOMATIQUE DE L'ABI
+        // ============================================
+        
+        function detectABI() {
+            const ua = navigator.userAgent.toLowerCase();
+            
+            // x86_64 (émulateurs, rares téléphones)
+            if (ua.includes('x86_64') || ua.includes('x86')) {
+                return 'x86_64';
+            }
+            
+            // arm64-v8a (téléphones modernes - 90% des cas)
+            if (ua.includes('arm64') || ua.includes('aarch64')) {
+                return 'arm64-v8a';
+            }
+            
+            // armeabi-v7a (téléphones anciens - fallback)
+            return 'armeabi-v7a';
+        }
+
+        function getAbiLabel(abi) {
+            const labels = {
+                'arm64-v8a': 'Téléphones modernes',
+                'armeabi-v7a': 'Téléphones anciens',
+                'x86_64': 'Émulateurs / appareils spéciaux'
+            };
+            return labels[abi] || abi;
+        }
+
+        function getAbiDescription(abi) {
+            const descriptions = {
+                'arm64-v8a': 'TECNO, Samsung, Xiaomi, Huawei récents',
+                'armeabi-v7a': 'Téléphones avant 2018',
+                'x86_64': 'PC émulateurs, appareils Intel'
+            };
+            return descriptions[abi] || '';
+        }
+
+        // ============================================
+        // CHARGEMENT PRINCIPAL
+        // ============================================
+        
         async function loadVersionInfo() {
             const versionText = document.getElementById('version-text');
             const versionDot = document.getElementById('version-dot');
@@ -333,6 +486,9 @@
             const changelog = document.getElementById('changelog');
             const changelogList = document.getElementById('changelog-list');
             const changelogTitle = document.getElementById('changelog-title');
+            const autoDetectInfo = document.getElementById('auto-detect-info');
+            const detectedAbiSpan = document.getElementById('detected-abi');
+            const toggleVersions = document.getElementById('toggle-versions');
 
             try {
                 // Vérifier que la clé a été remplacée
@@ -340,8 +496,15 @@
                     throw new Error('Clé Supabase non configurée');
                 }
 
+                const detectedABI = detectABI();
+                
+                // Afficher la détection
+                autoDetectInfo.style.display = 'block';
+                detectedAbiSpan.textContent = `${detectedABI} (${getAbiLabel(detectedABI)})`;
+
+                // 1. Récupérer la version détectée automatiquement
                 const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&is_active=eq.true&order=version_code.desc&limit=1`,
+                    `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&abi=eq.${detectedABI}&is_active=eq.true&order=version_code.desc&limit=1`,
                     {
                         headers: {
                             'apikey': SUPABASE_ANON,
@@ -357,32 +520,58 @@
                 const data = await response.json();
 
                 if (!data || data.length === 0) {
-                    throw new Error('Aucune version trouvée');
+                    // Fallback : chercher n'importe quelle version active
+                    const fallbackResponse = await fetch(
+                        `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&is_active=eq.true&order=version_code.desc&limit=1`,
+                        {
+                            headers: {
+                                'apikey': SUPABASE_ANON,
+                                'Authorization': `Bearer ${SUPABASE_ANON}`
+                            }
+                        }
+                    );
+                    const fallbackData = await fallbackResponse.json();
+                    
+                    if (!fallbackData || fallbackData.length === 0) {
+                        throw new Error('Aucune version trouvée');
+                    }
+                    
+                    // Utiliser le fallback mais avertir
+                    data.push(fallbackData[0]);
+                    downloadText.textContent = 'Télécharger (version compatible)';
                 }
 
                 const version = data[0];
 
-                // Mettre à jour l'UI
+                // 2. Mettre à jour l'UI avec la version détectée
                 versionText.textContent = `v${version.version_name} • Dernière version`;
                 versionDot.className = 'dot';
                 
                 downloadLink.href = version.apk_url;
-                downloadText.textContent = `Télécharger v${version.version_name}`;
+                downloadText.textContent = `Télécharger pour ${getAbiLabel(detectedABI)}`;
                 
                 fileSize.textContent = formatBytes(version.file_size_bytes);
-                downloadCount.textContent = version.download_count.toLocaleString();
+                downloadCount.textContent = (version.download_count || 0).toLocaleString();
 
-                // Mettre à jour le QR code
+                // 3. QR code pointe vers la version détectée
                 const qrUrl = encodeURIComponent(version.apk_url);
                 qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrUrl}&color=7C3AED`;
 
-                // Afficher le changelog
+                // 4. Changelog
                 const changes = parseChangelog(version.changelog);
                 if (changes.length > 0) {
-                    changelogList.innerHTML = changes.map(c => `<li>${c.replace(/^[-*]\s*/, '')}</li>`).join('');
+                    changelogList.innerHTML = changes.map(c => 
+                        `<li>${c.replace(/^[-*]\s*/, '')}</li>`
+                    ).join('');
                     changelogTitle.textContent = `Nouveautés v${version.version_name}`;
                     changelog.classList.add('visible');
                 }
+
+                // 5. Afficher le bouton "Voir toutes les versions"
+                toggleVersions.style.display = 'inline-block';
+
+                // 6. Charger toutes les versions en arrière-plan pour le fallback
+                loadAllVersions(detectedABI);
 
             } catch (error) {
                 console.error('Erreur chargement version:', error);
@@ -390,7 +579,73 @@
             }
         }
 
-        // Charger au démarrage
+        // ============================================
+        // CHARGER TOUTES LES VERSIONS (FALLBACK)
+        // ============================================
+        
+        async function loadAllVersions(currentABI) {
+            try {
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&is_active=eq.true&order=version_code.desc`,
+                    {
+                        headers: {
+                            'apikey': SUPABASE_ANON,
+                            'Authorization': `Bearer ${SUPABASE_ANON}`
+                        }
+                    }
+                );
+
+                if (!response.ok) return;
+                
+                const versions = await response.json();
+                if (!versions || versions.length === 0) return;
+
+                const versionsList = document.getElementById('versions-list');
+                versionsList.innerHTML = '';
+
+                for (const v of versions) {
+                    const isRecommended = v.abi === currentABI;
+                    const option = document.createElement('a');
+                    option.className = 'version-option';
+                    option.href = v.apk_url;
+                    
+                    option.innerHTML = `
+                        <div>
+                            <span class="abi-name">${v.abi}</span>
+                            <div class="abi-size">${getAbiDescription(v.abi)} • ${formatBytes(v.file_size_bytes)}</div>
+                        </div>
+                        ${isRecommended ? '<span class="abi-recommended">Recommandé</span>' : ''}
+                    `;
+                    
+                    versionsList.appendChild(option);
+                }
+
+            } catch (error) {
+                console.error('Erreur chargement versions:', error);
+            }
+        }
+
+        // ============================================
+        // AFFICHER/MASQUER LES VERSIONS ALTERNATIVES
+        // ============================================
+        
+        function toggleOtherVersions() {
+            const otherVersions = document.getElementById('other-versions');
+            const toggleBtn = document.getElementById('toggle-versions');
+            
+            if (otherVersions.classList.contains('visible')) {
+                otherVersions.classList.remove('visible');
+                toggleBtn.textContent = '→ Voir toutes les versions disponibles';
+            } else {
+                otherVersions.classList.add('visible');
+                toggleBtn.textContent = '↑ Masquer les autres versions';
+            }
+        }
+
+        // ============================================
+        // DÉMARRAGE
+        // ============================================
+        
         document.addEventListener('DOMContentLoaded', loadVersionInfo);
     </script>
 </body>
