@@ -2,218 +2,273 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduConnect.isuccess - Téléchargement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EduConnect.isuccess - Téléchargement v1.4.0</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
+            color: #1a1a2e;
         }
         
         .container {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 420px;
             width: 100%;
+            max-width: 420px;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        
+        /* Logo */
+        .logo-section {
+            margin: 30px 0 20px;
         }
         
         .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #7C3AED, #A78BFA);
-            border-radius: 20px;
-            margin: 0 auto 20px;
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            border-radius: 22px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.35);
+            font-size: 42px;
+            font-weight: 800;
             color: white;
-            font-size: 32px;
-            font-weight: bold;
         }
         
-        h1 {
-            color: #1F2937;
-            font-size: 24px;
-            margin-bottom: 8px;
+        h1 { 
+            font-size: 1.9rem; 
+            margin-top: 18px;
+            font-weight: 700;
+            color: #1a1a2e;
+            letter-spacing: -0.5px;
         }
         
-        .subtitle {
+        .tagline {
+            font-size: 0.95rem;
             color: #6B7280;
-            font-size: 14px;
-            margin-bottom: 30px;
+            margin-top: 6px;
         }
         
+        /* Version badge */
         .version-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-block;
             background: #ECFDF5;
             color: #059669;
-            padding: 8px 16px;
+            padding: 8px 20px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin: 20px 0;
         }
         
-        .version-badge .dot {
-            width: 8px;
-            height: 8px;
-            background: #10B981;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+        .version-badge::before {
+            content: "● ";
+            color: #10B981;
         }
         
-        .version-badge .loading {
-            width: 12px;
-            height: 12px;
-            border: 2px solid #059669;
-            border-top-color: transparent;
+        /* Détection en cours */
+        .detecting {
+            background: #F9FAFB;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 15px 0;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #E5E7EB;
+            border-top-color: #8B5CF6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            margin: 0 auto 15px;
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         
-        .qr-section {
-            margin: 20px 0;
-            padding: 20px;
-            background: #F9FAFB;
-            border-radius: 16px;
-        }
-        
-        .qr-section img {
-            width: 200px;
-            height: 200px;
-            border-radius: 12px;
-        }
-        
-        .qr-section p {
-            margin-top: 12px;
+        .detecting p {
+            font-size: 0.95rem;
             color: #6B7280;
-            font-size: 13px;
         }
         
-        .download-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 16px;
-            background: #7C3AED;
-            color: white;
-            border: none;
+        /* Résultat détection */
+        .detected-result {
+            background: #F5F3FF;
+            border: 1px solid #DDD6FE;
             border-radius: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            margin-bottom: 12px;
-        }
-        
-        .download-btn:hover {
-            background: #6D28D9;
-            transform: translateY(-2px);
-        }
-        
-        .download-btn:disabled {
-            background: #C4B5FD;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .download-btn.secondary {
-            background: #F3E8FF;
-            color: #7C3AED;
-            font-size: 14px;
-            padding: 12px;
-        }
-        
-        .download-btn.secondary:hover {
-            background: #EDE9FE;
-        }
-        
-        .abi-badge {
-            display: inline-block;
-            background: #F3E8FF;
-            color: #7C3AED;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        
-        .info-item {
-            background: #F9FAFB;
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        
-        .info-item .value {
-            color: #7C3AED;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .info-item .label {
-            color: #6B7280;
-            font-size: 12px;
-            margin-top: 4px;
-        }
-        
-        .footer {
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid #E5E7EB;
-            color: #9CA3AF;
-            font-size: 12px;
-        }
-        
-        .changelog {
-            text-align: left;
-            margin: 20px 0;
-            padding: 16px;
-            background: #F9FAFB;
-            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
             display: none;
         }
         
-        .changelog.visible {
-            display: block;
+        .detected-result.show { 
+            display: block; 
+            animation: fadeIn 0.5s ease; 
         }
         
-        .changelog h3 {
-            font-size: 14px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .detected-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .detected-text {
+            font-size: 1rem;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .detected-arch {
+            font-size: 0.85rem;
+            color: #8B5CF6;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+        
+        /* Bouton principal */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover, .btn-primary:active {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.45);
+        }
+        
+        .btn-primary svg {
+            width: 22px;
+            height: 22px;
+        }
+        
+        .file-info {
+            font-size: 0.8rem;
+            color: #9CA3AF;
+            margin-top: 12px;
+        }
+        
+        /* Section choix manuel */
+        .manual-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        .manual-title {
+            font-size: 0.8rem;
+            color: #9CA3AF;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+        
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .arch-btn {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 15px 6px;
             color: #374151;
-            margin-bottom: 8px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .arch-btn:hover, .arch-btn:active {
+            background: #F5F3FF;
+            border-color: #C4B5FD;
+            transform: translateY(-2px);
+        }
+        
+        .arch-btn.recommended {
+            border-color: #8B5CF6;
+            background: #F5F3FF;
+            position: relative;
+        }
+        
+        .arch-btn.recommended::after {
+            content: "✓ RECO";
+            display: block;
+            font-size: 0.55rem;
+            color: #8B5CF6;
+            margin-top: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .arch-icon {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+        
+        .arch-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        
+        .arch-detail {
+            font-size: 0.62rem;
+            color: #9CA3AF;
+            margin-top: 2px;
+        }
+        
+        /* Changelog */
+        .changelog {
+            background: #F9FAFB;
+            border-radius: 16px;
+            padding: 22px;
+            margin-top: 25px;
+            text-align: left;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .changelog h2 {
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+            text-align: center;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
         }
         
         .changelog ul {
@@ -222,431 +277,253 @@
         }
         
         .changelog li {
-            font-size: 13px;
-            color: #6B7280;
-            padding: 4px 0;
-            padding-left: 20px;
+            padding: 7px 0;
+            padding-left: 22px;
             position: relative;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #4B5563;
         }
         
         .changelog li::before {
-            content: "✓";
+            content: "▸";
             position: absolute;
             left: 0;
-            color: #10B981;
+            color: #8B5CF6;
             font-weight: bold;
         }
         
-        .error-message {
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+        
+        /* Error state */
+        .error-state {
             background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .error-state.show { display: block; }
+        
+        .error-state p:first-child {
             color: #DC2626;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            margin: 16px 0;
-            display: none;
-        }
-        
-        .error-message.visible {
-            display: block;
-        }
-        
-        /* Section versions alternatives */
-        .other-versions {
-            margin-top: 16px;
-            padding: 16px;
-            background: #F9FAFB;
-            border-radius: 12px;
-            display: none;
-        }
-        
-        .other-versions.visible {
-            display: block;
-        }
-        
-        .other-versions h4 {
-            font-size: 13px;
-            color: #374151;
-            margin-bottom: 12px;
-        }
-        
-        .version-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
-            margin: 6px 0;
-            background: white;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #374151;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-        
-        .version-option:hover {
-            background: #F3E8FF;
-        }
-        
-        .version-option .abi-name {
             font-weight: 600;
         }
         
-        .version-option .abi-size {
-            color: #6B7280;
-            font-size: 12px;
-        }
-        
-        .version-option .abi-recommended {
-            background: #ECFDF5;
-            color: #059669;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        
-        .toggle-versions {
-            background: none;
-            border: none;
-            color: #7C3AED;
-            font-size: 13px;
-            cursor: pointer;
-            text-decoration: underline;
-            margin-top: 12px;
-        }
-        
-        .auto-detect-info {
-            font-size: 12px;
-            color: #6B7280;
-            margin-bottom: 8px;
+        .error-state p:last-child {
+            color: #991B1B;
+            font-size: 0.85rem;
+            margin-top: 6px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">E</div>
-        <h1>EduConnect.isuccess</h1>
-        <p class="subtitle">Suivi scolaire simplifié</p>
-        
-        <div class="version-badge" id="version-badge">
-            <span class="loading" id="version-dot"></span>
-            <span id="version-text">Chargement...</span>
+        <!-- Logo -->
+        <div class="logo-section">
+            <div class="logo">E</div>
+            <h1>EduConnect.isuccess</h1>
+            <p class="tagline">Suivi scolaire simplifié</p>
         </div>
         
-        <div class="error-message" id="error-message">
-            Impossible de récupérer les informations. Veuillez réessayer.
+        <!-- Version -->
+        <div class="version-badge">v1.4.0 • Dernière version</div>
+        
+        <!-- Détection en cours -->
+        <div class="detecting" id="detecting">
+            <div class="spinner"></div>
+            <p>Détection automatique en cours...</p>
+            <p style="font-size: 0.8rem; color: #9CA3AF; margin-top: 8px;">Analyse de l'architecture de votre appareil</p>
         </div>
         
-        <!-- Détection automatique -->
-        <div class="auto-detect-info" id="auto-detect-info" style="display: none;">
-            Détection automatique : <span id="detected-abi">--</span>
+        <!-- Résultat détection -->
+        <div class="detected-result" id="detectedResult">
+            <div class="detected-icon" id="detectedIcon">📱</div>
+            <p class="detected-text" id="detectedText">Appareil détecté</p>
+            <p class="detected-arch" id="detectedArch"></p>
+            <a href="#" class="btn-primary" id="primaryDownload" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Télécharger maintenant
+            </a>
+            <p class="file-info" id="fileInfo"></p>
         </div>
         
-        <!-- QR Code -->
-        <div class="qr-section">
-            <img src="https://via.placeholder.com/200x200/7C3AED/FFFFFF?text=EduConnect" 
-                 alt="QR Code EduConnect" 
-                 id="qr-image">
-            <p>Scannez ce code pour télécharger</p>
+        <!-- Error fallback -->
+        <div class="error-state" id="errorState">
+            <p>⚠️ Détection impossible</p>
+            <p>Veuillez sélectionner votre architecture ci-dessous</p>
         </div>
         
-        <!-- Bouton principal (version détectée) -->
-        <a href="#" id="download-link" class="download-btn">
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-            </svg>
-            <span id="download-text">Télécharger l'APK</span>
-        </a>
-        
-        <!-- Bouton fallback -->
-        <button class="toggle-versions" id="toggle-versions" onclick="toggleOtherVersions()" style="display: none;">
-            → Voir toutes les versions disponibles
-        </button>
-        
-        <!-- Versions alternatives (caché par défaut) -->
-        <div class="other-versions" id="other-versions">
-            <h4>Toutes les versions :</h4>
-            <div id="versions-list"></div>
-        </div>
-        
-        <div class="changelog" id="changelog">
-            <h3 id="changelog-title">Nouveautés</h3>
-            <ul id="changelog-list"></ul>
-        </div>
-        
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="value" id="file-size">--</div>
-                <div class="label">Taille</div>
-            </div>
-            <div class="info-item">
-                <div class="value" id="download-count">--</div>
-                <div class="label">Téléchargements</div>
-            </div>
-            <div class="info-item">
-                <div class="value">Android 5+</div>
-                <div class="label">Compatibilité</div>
-            </div>
-            <div class="info-item">
-                <div class="value">100% Gratuit</div>
-                <div class="label">Essai 7 jours</div>
+        <!-- Choix manuel -->
+        <div class="manual-section">
+            <p class="manual-title">Ou choisissez manuellement</p>
+            <div class="arch-grid" id="archGrid">
+                <a href="educonnect-arm64-v8a.apk" class="arch-btn" id="btnArm64" download>
+                    <div class="arch-icon">📱</div>
+                    <div class="arch-name">ARM64</div>
+                    <div class="arch-detail">v8a • Moderne</div>
+                </a>
+                <a href="educonnect-armeabi-v7a.apk" class="arch-btn" id="btnArmv7" download>
+                    <div class="arch-icon">📲</div>
+                    <div class="arch-name">ARMv7</div>
+                    <div class="arch-detail">32-bit • Universel</div>
+                </a>
+                <a href="educonnect-x86_64.apk" class="arch-btn" id="btnX86" download>
+                    <div class="arch-icon">💻</div>
+                    <div class="arch-name">x86_64</div>
+                    <div class="arch-detail">Intel • Rare</div>
+                </a>
             </div>
         </div>
         
+        <!-- Changelog -->
+        <div class="changelog">
+            <h2>📝 Nouveautés v1.4.0</h2>
+            <ul>
+                <li><strong>Exports Enseignant</strong> : PDF & Excel des notes et assiduité</li>
+                <li><strong>Exports Admin</strong> : Credentials et rapports d'école</li>
+                <li><strong>Correction doublons</strong> : Nettoyage des données</li>
+                <li>Améliorations de performance et stabilité</li>
+            </ul>
+        </div>
+        
+        <!-- Footer -->
         <div class="footer">
-            <p>© 2026 EduConnect.isuccess</p>
-            <p style="margin-top:4px">Développé par Bongai Henri</p>
-            <p style="margin-top:4px">Contact: support@educonnect.isuccess.com</p>
+            <p>© 2026 EduConnect.isuccess • Tous droits réservés</p>
+            <p style="margin-top: 4px;">v1.4.0+14 • Build 14</p>
         </div>
     </div>
 
     <script>
-        // ============================================
-        // CONFIGURATION SUPABASE
-        // ============================================
-        const SUPABASE_URL = 'https://vethtvfdkywbzxzwckdl.supabase.co';
-        const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZldGh0dmZka3l3Ynp4endja2RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3MjU2ODQsImV4cCI6MjA5MTMwMTY4NH0.JFvt2Jmv_W0XVnVI0fNKRjm5rxePjzuSO1txTY-8nIE';
+        // Configuration des APKs
+        const APK_FILES = {
+            arm64: {
+                file: 'educonnect-arm64-v8a.apk',
+                name: 'ARM64 (v8a)',
+                desc: 'Appareil moderne détecté',
+                size: '~22 MB',
+                icon: '🚀',
+                modern: true
+            },
+            armv7: {
+                file: 'educonnect-armeabi-v7a.apk',
+                name: 'ARMv7 (32-bit)',
+                desc: 'Téléphone ancien détecté',
+                size: '~20 MB',
+                icon: '📱',
+                modern: false
+            },
+            x86_64: {
+                file: 'educonnect-x86_64.apk',
+                name: 'x86_64 (Intel)',
+                desc: 'Appareil Intel détecté',
+                size: '~24 MB',
+                icon: '💻',
+                modern: false
+            }
+        };
 
-        // ============================================
-        // FONCTIONS UTILITAIRES
-        // ============================================
-        
-        function formatBytes(bytes) {
-            if (!bytes || bytes === 0) return '--';
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
-            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        function detectArchitecture() {
+            const ua = navigator.userAgent;
+            const platform = navigator.platform;
+            
+            // Détection via user agent
+            const isAndroid = /Android/.test(ua);
+            const is64Bit = /aarch64|arm64|x86_64|Win64|x64/.test(ua) || navigator.deviceMemory > 4;
+            const isARM = /arm|Android/.test(ua);
+            const isX86 = /x86|i386|i686/.test(ua);
+            
+            // Heuristique de détection
+            if (isAndroid || isARM) {
+                if (is64Bit && !isX86) {
+                    return 'arm64';
+                } else if (isX86) {
+                    return 'x86_64';
+                } else {
+                    return 'armv7';
+                }
+            }
+            
+            // Fallback : vérifier si l'appareil est récent (probablement ARM64)
+            const memory = navigator.deviceMemory || 2;
+            const cores = navigator.hardwareConcurrency || 2;
+            
+            if (memory >= 4 && cores >= 6) {
+                return 'arm64';
+            }
+            
+            return 'armv7'; // Fallback universel
         }
 
-        function parseChangelog(text) {
-            if (!text) return [];
-            return text.split('\n').filter(line => line.trim());
+        function showResult(arch) {
+            const config = APK_FILES[arch];
+            const detecting = document.getElementById('detecting');
+            const result = document.getElementById('detectedResult');
+            const primaryBtn = document.getElementById('primaryDownload');
+            const detectedText = document.getElementById('detectedText');
+            const detectedArch = document.getElementById('detectedArch');
+            const detectedIcon = document.getElementById('detectedIcon');
+            const fileInfo = document.getElementById('fileInfo');
+            
+            // Masquer spinner
+            detecting.style.display = 'none';
+            
+            // Afficher résultat
+            detectedIcon.textContent = config.icon;
+            detectedText.textContent = config.desc;
+            detectedArch.textContent = 'Détection automatique : ' + config.name.toLowerCase();
+            primaryBtn.href = config.file;
+            fileInfo.textContent = '📦 ' + config.size + ' • Android 8+';
+            
+            result.classList.add('show');
+            
+            // Marquer le bouton recommandé dans la grille
+            document.querySelectorAll('.arch-btn').forEach(btn => {
+                btn.classList.remove('recommended');
+            });
+            
+            const btnMap = {
+                'arm64': 'btnArm64',
+                'armv7': 'btnArmv7',
+                'x86_64': 'btnX86'
+            };
+            
+            const recommendedId = btnMap[arch];
+            if (recommendedId) {
+                document.getElementById(recommendedId).classList.add('recommended');
+            }
         }
 
         function showError() {
-            document.getElementById('error-message').classList.add('visible');
-            document.getElementById('version-text').textContent = 'v2.0.0';
-            document.getElementById('version-dot').className = 'dot';
-            document.getElementById('download-link').href = '#';
-            document.getElementById('download-link').classList.add('disabled');
+            document.getElementById('detecting').style.display = 'none';
+            document.getElementById('errorState').classList.add('show');
+            document.getElementById('detectedResult').style.display = 'none';
         }
 
-        // ============================================
-        // DÉTECTION AUTOMATIQUE DE L'ABI
-        // ============================================
-        
-        function detectABI() {
-            const ua = navigator.userAgent.toLowerCase();
-            
-            // x86_64 (émulateurs, rares téléphones)
-            if (ua.includes('x86_64') || ua.includes('x86')) {
-                return 'x86_64';
-            }
-            
-            // arm64-v8a (téléphones modernes - 90% des cas)
-            if (ua.includes('arm64') || ua.includes('aarch64')) {
-                return 'arm64-v8a';
-            }
-            
-            // armeabi-v7a (téléphones anciens - fallback)
-            return 'armeabi-v7a';
-        }
-
-        function getAbiLabel(abi) {
-            const labels = {
-                'arm64-v8a': 'Téléphones modernes',
-                'armeabi-v7a': 'Téléphones anciens',
-                'x86_64': 'Émulateurs / appareils spéciaux'
-            };
-            return labels[abi] || abi;
-        }
-
-        function getAbiDescription(abi) {
-            const descriptions = {
-                'arm64-v8a': 'TECNO, Samsung, Xiaomi, Huawei récents',
-                'armeabi-v7a': 'Téléphones avant 2018',
-                'x86_64': 'PC émulateurs, appareils Intel'
-            };
-            return descriptions[abi] || '';
-        }
-
-        // ============================================
-        // CHARGEMENT PRINCIPAL
-        // ============================================
-        
-        async function loadVersionInfo() {
-            const versionText = document.getElementById('version-text');
-            const versionDot = document.getElementById('version-dot');
-            const downloadLink = document.getElementById('download-link');
-            const downloadText = document.getElementById('download-text');
-            const qrImage = document.getElementById('qr-image');
-            const fileSize = document.getElementById('file-size');
-            const downloadCount = document.getElementById('download-count');
-            const changelog = document.getElementById('changelog');
-            const changelogList = document.getElementById('changelog-list');
-            const changelogTitle = document.getElementById('changelog-title');
-            const autoDetectInfo = document.getElementById('auto-detect-info');
-            const detectedAbiSpan = document.getElementById('detected-abi');
-            const toggleVersions = document.getElementById('toggle-versions');
-
-            try {
-                // Vérifier que la clé a été remplacée
-                if (SUPABASE_ANON.includes('...')) {
-                    throw new Error('Clé Supabase non configurée');
+        // Lancer la détection au chargement
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                try {
+                    const detected = detectArchitecture();
+                    showResult(detected);
+                } catch (e) {
+                    console.error('Detection error:', e);
+                    showError();
                 }
-
-                const detectedABI = detectABI();
-                
-                // Afficher la détection
-                autoDetectInfo.style.display = 'block';
-                detectedAbiSpan.textContent = `${detectedABI} (${getAbiLabel(detectedABI)})`;
-
-                // 1. Récupérer la version détectée automatiquement
-                const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&abi=eq.${detectedABI}&is_active=eq.true&order=version_code.desc&limit=1`,
-                    {
-                        headers: {
-                            'apikey': SUPABASE_ANON,
-                            'Authorization': `Bearer ${SUPABASE_ANON}`
-                        }
-                    }
-                );
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                if (!data || data.length === 0) {
-                    // Fallback : chercher n'importe quelle version active
-                    const fallbackResponse = await fetch(
-                        `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&is_active=eq.true&order=version_code.desc&limit=1`,
-                        {
-                            headers: {
-                                'apikey': SUPABASE_ANON,
-                                'Authorization': `Bearer ${SUPABASE_ANON}`
-                            }
-                        }
-                    );
-                    const fallbackData = await fallbackResponse.json();
-                    
-                    if (!fallbackData || fallbackData.length === 0) {
-                        throw new Error('Aucune version trouvée');
-                    }
-                    
-                    // Utiliser le fallback mais avertir
-                    data.push(fallbackData[0]);
-                    downloadText.textContent = 'Télécharger (version compatible)';
-                }
-
-                const version = data[0];
-
-                // 2. Mettre à jour l'UI avec la version détectée
-                versionText.textContent = `v${version.version_name} • Dernière version`;
-                versionDot.className = 'dot';
-                
-                downloadLink.href = version.apk_url;
-                downloadText.textContent = `Télécharger pour ${getAbiLabel(detectedABI)}`;
-                
-                fileSize.textContent = formatBytes(version.file_size_bytes);
-                downloadCount.textContent = (version.download_count || 0).toLocaleString();
-
-                // 3. QR code pointe vers la version détectée
-                const qrUrl = encodeURIComponent(version.apk_url);
-                qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrUrl}&color=7C3AED`;
-
-                // 4. Changelog
-                const changes = parseChangelog(version.changelog);
-                if (changes.length > 0) {
-                    changelogList.innerHTML = changes.map(c => 
-                        `<li>${c.replace(/^[-*]\s*/, '')}</li>`
-                    ).join('');
-                    changelogTitle.textContent = `Nouveautés v${version.version_name}`;
-                    changelog.classList.add('visible');
-                }
-
-                // 5. Afficher le bouton "Voir toutes les versions"
-                toggleVersions.style.display = 'inline-block';
-
-                // 6. Charger toutes les versions en arrière-plan pour le fallback
-                loadAllVersions(detectedABI);
-
-            } catch (error) {
-                console.error('Erreur chargement version:', error);
-                showError();
-            }
-        }
-
-        // ============================================
-        // CHARGER TOUTES LES VERSIONS (FALLBACK)
-        // ============================================
-        
-        async function loadAllVersions(currentABI) {
-            try {
-                const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/app_versions?platform=eq.android&is_active=eq.true&order=version_code.desc`,
-                    {
-                        headers: {
-                            'apikey': SUPABASE_ANON,
-                            'Authorization': `Bearer ${SUPABASE_ANON}`
-                        }
-                    }
-                );
-
-                if (!response.ok) return;
-                
-                const versions = await response.json();
-                if (!versions || versions.length === 0) return;
-
-                const versionsList = document.getElementById('versions-list');
-                versionsList.innerHTML = '';
-
-                for (const v of versions) {
-                    const isRecommended = v.abi === currentABI;
-                    const option = document.createElement('a');
-                    option.className = 'version-option';
-                    option.href = v.apk_url;
-                    
-                    option.innerHTML = `
-                        <div>
-                            <span class="abi-name">${v.abi}</span>
-                            <div class="abi-size">${getAbiDescription(v.abi)} • ${formatBytes(v.file_size_bytes)}</div>
-                        </div>
-                        ${isRecommended ? '<span class="abi-recommended">Recommandé</span>' : ''}
-                    `;
-                    
-                    versionsList.appendChild(option);
-                }
-
-            } catch (error) {
-                console.error('Erreur chargement versions:', error);
-            }
-        }
-
-        // ============================================
-        // AFFICHER/MASQUER LES VERSIONS ALTERNATIVES
-        // ============================================
-        
-        function toggleOtherVersions() {
-            const otherVersions = document.getElementById('other-versions');
-            const toggleBtn = document.getElementById('toggle-versions');
-            
-            if (otherVersions.classList.contains('visible')) {
-                otherVersions.classList.remove('visible');
-                toggleBtn.textContent = '→ Voir toutes les versions disponibles';
-            } else {
-                otherVersions.classList.add('visible');
-                toggleBtn.textContent = '↑ Masquer les autres versions';
-            }
-        }
-
-        // ============================================
-        // DÉMARRAGE
-        // ============================================
-        
-        document.addEventListener('DOMContentLoaded', loadVersionInfo);
+            }, 1500); // Délai pour l'effet "analyse en cours"
+        });
     </script>
 </body>
 </html>
