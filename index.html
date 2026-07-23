@@ -26,36 +26,36 @@
         
         /* Logo */
         .logo-section {
-            margin: 30px 0 20px;
+            margin: 20px 0 15px;
         }
         
         .logo {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-            border-radius: 22px;
+            border-radius: 20px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 8px 32px rgba(139, 92, 246, 0.35);
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 800;
             color: white;
         }
         
         h1 { 
-            font-size: 1.9rem; 
-            margin-top: 18px;
+            font-size: 1.7rem; 
+            margin-top: 14px;
             font-weight: 700;
             color: #1a1a2e;
             letter-spacing: -0.5px;
         }
         
         .tagline {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #6B7280;
-            margin-top: 6px;
+            margin-top: 4px;
         }
         
         /* Version badge */
@@ -63,11 +63,11 @@
             display: inline-block;
             background: #ECFDF5;
             color: #059669;
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin: 20px 0;
+            margin: 12px 0;
         }
         
         .version-badge::before {
@@ -75,23 +75,73 @@
             color: #10B981;
         }
         
+        /* QR CODE SECTION - LA PIECE MAITRESSE */
+        .qr-section {
+            background: #F9FAFB;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 15px 0;
+            border: 2px solid #E5E7EB;
+        }
+        
+        .qr-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+        
+        .qr-subtitle {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-bottom: 15px;
+        }
+        
+        .qr-code-container {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin-bottom: 10px;
+        }
+        
+        .qr-code-container img {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+        
+        .qr-instruction {
+            font-size: 0.85rem;
+            color: #8B5CF6;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        .qr-hint {
+            font-size: 0.75rem;
+            color: #9CA3AF;
+            margin-top: 4px;
+        }
+        
         /* Détection en cours */
         .detecting {
-            background: #F9FAFB;
+            background: #F5F3FF;
             border-radius: 16px;
-            padding: 30px;
-            margin: 15px 0;
-            border: 1px solid #E5E7EB;
+            padding: 20px;
+            margin: 12px 0;
+            border: 1px solid #DDD6FE;
         }
         
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #E5E7EB;
+            width: 32px;
+            height: 32px;
+            border: 3px solid #DDD6FE;
             border-top-color: #8B5CF6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
         }
         
         @keyframes spin {
@@ -99,7 +149,7 @@
         }
         
         .detecting p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #6B7280;
         }
         
@@ -108,8 +158,8 @@
             background: #F5F3FF;
             border: 1px solid #DDD6FE;
             border-radius: 16px;
-            padding: 25px;
-            margin: 15px 0;
+            padding: 20px;
+            margin: 12px 0;
             display: none;
         }
         
@@ -124,21 +174,21 @@
         }
         
         .detected-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            margin-bottom: 8px;
         }
         
         .detected-text {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #1a1a2e;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             font-weight: 500;
         }
         
         .detected-arch {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #8B5CF6;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             font-weight: 500;
         }
         
@@ -147,48 +197,48 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             background: linear-gradient(135deg, #8B5CF6, #7C3AED);
             color: white;
-            padding: 16px 32px;
-            border-radius: 14px;
+            padding: 14px 28px;
+            border-radius: 12px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             border: none;
             width: 100%;
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.35);
             transition: all 0.3s ease;
             cursor: pointer;
         }
         
         .btn-primary:hover, .btn-primary:active {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.45);
+            box-shadow: 0 10px 28px rgba(139, 92, 246, 0.45);
         }
         
         .btn-primary svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
         }
         
         .file-info {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #9CA3AF;
-            margin-top: 12px;
+            margin-top: 10px;
         }
         
         /* Section choix manuel */
         .manual-section {
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 20px;
+            padding-top: 16px;
             border-top: 1px solid #E5E7EB;
         }
         
         .manual-title {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #9CA3AF;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 600;
@@ -197,14 +247,14 @@
         .arch-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
         
         .arch-btn {
             background: #F9FAFB;
             border: 1px solid #E5E7EB;
-            border-radius: 12px;
-            padding: 15px 6px;
+            border-radius: 10px;
+            padding: 12px 4px;
             color: #374151;
             text-decoration: none;
             text-align: center;
@@ -227,43 +277,43 @@
         .arch-btn.recommended::after {
             content: "✓ RECO";
             display: block;
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: #8B5CF6;
-            margin-top: 4px;
+            margin-top: 3px;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
         
         .arch-icon {
-            font-size: 1.5rem;
-            margin-bottom: 6px;
+            font-size: 1.3rem;
+            margin-bottom: 4px;
         }
         
         .arch-name {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             font-weight: 600;
             color: #1a1a2e;
         }
         
         .arch-detail {
-            font-size: 0.62rem;
+            font-size: 0.58rem;
             color: #9CA3AF;
-            margin-top: 2px;
+            margin-top: 1px;
         }
         
         /* Changelog */
         .changelog {
             background: #F9FAFB;
-            border-radius: 16px;
-            padding: 22px;
-            margin-top: 25px;
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 20px;
             text-align: left;
             border: 1px solid #E5E7EB;
         }
         
         .changelog h2 {
-            font-size: 0.85rem;
-            margin-bottom: 14px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
             text-align: center;
             color: #1a1a2e;
             text-transform: uppercase;
@@ -277,11 +327,11 @@
         }
         
         .changelog li {
-            padding: 7px 0;
-            padding-left: 22px;
+            padding: 6px 0;
+            padding-left: 20px;
             position: relative;
-            font-size: 0.85rem;
-            line-height: 1.5;
+            font-size: 0.8rem;
+            line-height: 1.4;
             color: #4B5563;
         }
         
@@ -295,8 +345,8 @@
         
         /* Footer */
         .footer {
-            margin-top: 30px;
-            font-size: 0.75rem;
+            margin-top: 24px;
+            font-size: 0.7rem;
             color: #9CA3AF;
             text-align: center;
         }
@@ -305,9 +355,9 @@
         .error-state {
             background: #FEF2F2;
             border: 1px solid #FECACA;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 15px 0;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 12px 0;
             display: none;
         }
         
@@ -320,8 +370,8 @@
         
         .error-state p:last-child {
             color: #991B1B;
-            font-size: 0.85rem;
-            margin-top: 6px;
+            font-size: 0.8rem;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -337,11 +387,24 @@
         <!-- Version -->
         <div class="version-badge">v1.4.0 • Dernière version</div>
         
+        <!-- QR CODE - PIECE MAITRESSE -->
+        <div class="qr-section">
+            <p class="qr-title">📱 Scanner pour télécharger</p>
+            <p class="qr-subtitle">Pointez votre caméra sur ce code</p>
+            <div class="qr-code-container">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://bongaihenri-wq.github.io/educonnect-landing/&color=7C3AED&bgcolor=FFFFFF" 
+                     alt="QR Code EduConnect" 
+                     id="qrImage">
+            </div>
+            <p class="qr-instruction">Scannez ce code avec votre téléphone</p>
+            <p class="qr-hint">Le téléchargement démarre automatiquement</p>
+        </div>
+        
         <!-- Détection en cours -->
         <div class="detecting" id="detecting">
             <div class="spinner"></div>
-            <p>Détection automatique en cours...</p>
-            <p style="font-size: 0.8rem; color: #9CA3AF; margin-top: 8px;">Analyse de l'architecture de votre appareil</p>
+            <p>Analyse de votre appareil...</p>
+            <p style="font-size: 0.75rem; color: #9CA3AF; margin-top: 6px;">Détection de l'architecture</p>
         </div>
         
         <!-- Résultat détection -->
@@ -402,7 +465,7 @@
         <!-- Footer -->
         <div class="footer">
             <p>© 2026 EduConnect.isuccess • Tous droits réservés</p>
-            <p style="margin-top: 4px;">v1.4.0+14 • Build 14</p>
+            <p style="margin-top: 3px;">v1.4.0+14 • Build 14</p>
         </div>
     </div>
 
@@ -439,13 +502,11 @@
             const ua = navigator.userAgent;
             const platform = navigator.platform;
             
-            // Détection via user agent
             const isAndroid = /Android/.test(ua);
             const is64Bit = /aarch64|arm64|x86_64|Win64|x64/.test(ua) || navigator.deviceMemory > 4;
             const isARM = /arm|Android/.test(ua);
             const isX86 = /x86|i386|i686/.test(ua);
             
-            // Heuristique de détection
             if (isAndroid || isARM) {
                 if (is64Bit && !isX86) {
                     return 'arm64';
@@ -456,7 +517,6 @@
                 }
             }
             
-            // Fallback : vérifier si l'appareil est récent (probablement ARM64)
             const memory = navigator.deviceMemory || 2;
             const cores = navigator.hardwareConcurrency || 2;
             
@@ -464,7 +524,7 @@
                 return 'arm64';
             }
             
-            return 'armv7'; // Fallback universel
+            return 'armv7';
         }
 
         function showResult(arch) {
@@ -477,10 +537,8 @@
             const detectedIcon = document.getElementById('detectedIcon');
             const fileInfo = document.getElementById('fileInfo');
             
-            // Masquer spinner
             detecting.style.display = 'none';
             
-            // Afficher résultat
             detectedIcon.textContent = config.icon;
             detectedText.textContent = config.desc;
             detectedArch.textContent = 'Détection automatique : ' + config.name.toLowerCase();
@@ -489,7 +547,6 @@
             
             result.classList.add('show');
             
-            // Marquer le bouton recommandé dans la grille
             document.querySelectorAll('.arch-btn').forEach(btn => {
                 btn.classList.remove('recommended');
             });
@@ -512,7 +569,6 @@
             document.getElementById('detectedResult').style.display = 'none';
         }
 
-        // Lancer la détection au chargement
         window.addEventListener('load', function() {
             setTimeout(() => {
                 try {
@@ -522,7 +578,7 @@
                     console.error('Detection error:', e);
                     showError();
                 }
-            }, 1500); // Délai pour l'effet "analyse en cours"
+            }, 1500);
         });
     </script>
 </body>
