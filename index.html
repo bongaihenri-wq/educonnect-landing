@@ -302,6 +302,155 @@
             margin-top: 1px;
         }
         
+        /* ===== NOUVEAU : Section iOS / PWA ===== */
+        .ios-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        .ios-card {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 14px;
+            padding: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .ios-card.highlighted {
+            border-color: #8B5CF6;
+            background: #F5F3FF;
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.2);
+        }
+        
+        .ios-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+        
+        .ios-subtitle {
+            font-size: 0.78rem;
+            color: #6B7280;
+            margin-bottom: 14px;
+        }
+        
+        .btn-ios {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #1a1a2e, #000000);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            width: 100%;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-ios:hover, .btn-ios:active {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+        }
+        
+        .ios-steps {
+            margin-top: 14px;
+            text-align: left;
+            background: #ffffff;
+            border: 1px dashed #DDD6FE;
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        
+        .ios-steps-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+        
+        .ios-steps ol {
+            margin-left: 18px;
+        }
+        
+        .ios-steps li {
+            font-size: 0.75rem;
+            color: #4B5563;
+            line-height: 1.6;
+        }
+        
+        /* Étapes iOS dans le bloc de détection */
+        .ios-quick-steps {
+            margin-top: 14px;
+            text-align: left;
+            background: #ffffff;
+            border: 1px dashed #DDD6FE;
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        
+        .ios-quick-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 5px 0;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+        
+        .step-text {
+            font-size: 0.78rem;
+            color: #374151;
+            line-height: 1.5;
+        }
+        
+        .step-text strong {
+            color: #1a1a2e;
+        }
+        
+        .safari-warning {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            background: #FFFBEB;
+            border: 1px solid #FDE68A;
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+        
+        .safari-warning-icon {
+            font-size: 1rem;
+        }
+        
+        .safari-warning-text {
+            font-size: 0.72rem;
+            color: #92400E;
+            line-height: 1.4;
+            text-align: left;
+        }
+        /* ===== FIN Section iOS / PWA ===== */
+        
         /* Changelog */
         .changelog {
             background: #F9FAFB;
@@ -424,6 +573,34 @@
             <p class="file-info" id="fileInfo"></p>
         </div>
         
+        <!-- NOUVEAU : Résultat détection iOS -->
+        <div class="detected-result" id="iosResult">
+            <div class="detected-icon">🍎</div>
+            <p class="detected-text">iPhone / iPad détecté</p>
+            <p class="detected-arch">Version web — aucune installation requise</p>
+            <a href="#" class="btn-ios" id="iosPrimaryBtn" target="_blank" rel="noopener">
+                 Ouvrir EduConnect
+            </a>
+            <div class="ios-quick-steps">
+                <div class="ios-quick-step">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Touchez <strong>« Ouvrir EduConnect »</strong> ci-dessus — l'app se lance dans Safari</span>
+                </div>
+                <div class="ios-quick-step">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Dans Safari, touchez le bouton <strong>Partager</strong> <em>(le carré avec une flèche vers le haut, en bas de l'écran)</em></span>
+                </div>
+                <div class="ios-quick-step">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Faites défiler et choisissez <strong>« Sur l'écran d'accueil »</strong> — l'icône EduConnect apparaît comme une vraie app</span>
+                </div>
+                <div class="safari-warning">
+                    <span class="safari-warning-icon">⚠️</span>
+                    <span class="safari-warning-text"><strong>Important :</strong> utilisez <strong>Safari</strong> (le navigateur bleu d'Apple), pas Chrome — sinon l'ajout à l'écran d'accueil ne fonctionnera pas.</span>
+                </div>
+            </div>
+        </div>
+        
         <!-- Error fallback -->
         <div class="error-state" id="errorState">
             <p>⚠️ Détection impossible</p>
@@ -452,6 +629,35 @@
             </div>
         </div>
         
+        <!-- NOUVEAU : Section iOS / PWA -->
+        <div class="ios-section">
+            <div class="ios-card" id="iosCard">
+                <p class="ios-title">🍎 iPhone / iPad</p>
+                <p class="ios-subtitle">Utilisez EduConnect directement, sans installation</p>
+                <a href="#" class="btn-ios" id="iosOpenApp" target="_blank" rel="noopener">
+                     Ouvrir l'app web
+                </a>
+                <div class="ios-quick-steps">
+                    <div class="ios-quick-step">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Touchez <strong>« Ouvrir l'app web »</strong> — EduConnect se lance dans Safari</span>
+                    </div>
+                    <div class="ios-quick-step">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Touchez <strong>Partager</strong> <em>(carré avec flèche vers le haut, en bas de l'écran)</em></span>
+                    </div>
+                    <div class="ios-quick-step">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Choisissez <strong>« Sur l'écran d'accueil »</strong></span>
+                    </div>
+                    <div class="safari-warning">
+                        <span class="safari-warning-icon">⚠️</span>
+                        <span class="safari-warning-text"><strong>Safari uniquement</strong> — dans Chrome iPhone, l'ajout à l'écran d'accueil n'est pas disponible.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Changelog -->
         <div class="changelog">
             <h2>📝 Nouveautés v1.5.0</h2>
@@ -460,6 +666,7 @@
                <li>🔧 Corrections sur la gestion des abonnements</li>
                <li>🎨 Nouveau logo et nouvelle interface de démarrage</li>
                 <li>⚡ Améliorations de performance et stabilité</li>
+                <li>🍎 Compatible iPhone / iPad via l'app web</li>
             </ul>
         </div>
         
@@ -471,6 +678,10 @@
     </div>
 
     <script>
+        // ===== NOUVEAU : URL de la PWA (app web iOS) =====
+        // TODO : mettre à jour si l'URL de la PWA déployée est différente
+        const PWA_URL = 'https://bongaihenri-wq.github.io/educonnect-app/';
+
         // Configuration des APKs
         const APK_FILES = {
             arm64: {
@@ -498,6 +709,29 @@
                 modern: false
             }
         };
+
+        // ===== NOUVEAU : Détection iOS =====
+        function isIOSDevice() {
+            const ua = navigator.userAgent;
+            const isIPhoneIPodIPad = /iPhone|iPad|iPod/.test(ua);
+            // iPadOS 13+ se fait passer pour un Mac : on vérifie l'écran tactile
+            const isIPadOS = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+            return isIPhoneIPodIPad || isIPadOS;
+        }
+
+        // ===== NOUVEAU : Affichage du résultat iOS =====
+        function showIOSResult() {
+            document.getElementById('detecting').style.display = 'none';
+            const iosResult = document.getElementById('iosResult');
+            document.getElementById('iosPrimaryBtn').href = PWA_URL;
+            iosResult.classList.add('show');
+            // Met en avant la carte iOS dans la section dédiée
+            document.getElementById('iosCard').classList.add('highlighted');
+            // Fait défiler doucement jusqu'au bouton iOS
+            setTimeout(() => {
+                iosResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
 
         function detectArchitecture() {
             const ua = navigator.userAgent;
@@ -571,8 +805,16 @@
         }
 
         window.addEventListener('load', function() {
+            // Lien du bouton iOS permanent (section dédiée)
+            document.getElementById('iosOpenApp').href = PWA_URL;
+
             setTimeout(() => {
                 try {
+                    // iOS détecté → on propose la PWA, sinon logique Android existante
+                    if (isIOSDevice()) {
+                        showIOSResult();
+                        return;
+                    }
                     const detected = detectArchitecture();
                     showResult(detected);
                 } catch (e) {
