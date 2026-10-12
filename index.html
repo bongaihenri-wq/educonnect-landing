@@ -621,12 +621,7 @@
                     <div class="arch-name">ARMv7</div>
                     <div class="arch-detail">32-bit • Universel</div>
                 </a>
-                <a href="educonnect-x86_64.apk" class="arch-btn" id="btnX86" download>
-                    <div class="arch-icon">💻</div>
-                    <div class="arch-name">x86_64</div>
-                    <div class="arch-detail">Intel • Rare</div>
-                </a>
-            </div>
+                            </div>
         </div>
         
         <!-- NOUVEAU : Section iOS / PWA -->
@@ -695,37 +690,6 @@
                 size: '~20 MB',
                 icon: '📱',
                 modern: false
-            },
-            x86_64: {
-                file: 'educonnect-x86_64.apk',
-                name: 'x86_64 (Intel)',
-                desc: 'Appareil Intel détecté',
-                size: '~24 MB',
-                icon: '💻',
-                modern: false
-            }
-        };
-
-        // ===== NOUVEAU : Détection iOS =====
-        function isIOSDevice() {
-            const ua = navigator.userAgent;
-            const isIPhoneIPodIPad = /iPhone|iPad|iPod/.test(ua);
-            // iPadOS 13+ se fait passer pour un Mac : on vérifie l'écran tactile
-            const isIPadOS = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
-            return isIPhoneIPodIPad || isIPadOS;
-        }
-
-        // ===== NOUVEAU : Affichage du résultat iOS =====
-        function showIOSResult() {
-            document.getElementById('detecting').style.display = 'none';
-            const iosResult = document.getElementById('iosResult');
-            document.getElementById('iosPrimaryBtn').href = PWA_URL;
-            iosResult.classList.add('show');
-            // Met en avant la carte iOS dans la section dédiée
-            document.getElementById('iosCard').classList.add('highlighted');
-            // Fait défiler doucement jusqu'au bouton iOS
-            setTimeout(() => {
-                iosResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
         }
 
@@ -734,15 +698,13 @@
             const platform = navigator.platform;
             
             const isAndroid = /Android/.test(ua);
-            const is64Bit = /aarch64|arm64|x86_64|Win64|x64/.test(ua) || navigator.deviceMemory > 4;
+            const is64Bit = /aarch64|arm64|Win64|x64/.test(ua) || navigator.deviceMemory > 4;
             const isARM = /arm|Android/.test(ua);
             const isX86 = /x86|i386|i686/.test(ua);
             
             if (isAndroid || isARM) {
                 if (is64Bit && !isX86) {
                     return 'arm64';
-                } else if (isX86) {
-                    return 'x86_64';
                 } else {
                     return 'armv7';
                 }
@@ -785,7 +747,6 @@
             const btnMap = {
                 'arm64': 'btnArm64',
                 'armv7': 'btnArmv7',
-                'x86_64': 'btnX86'
             };
             
             const recommendedId = btnMap[arch];
