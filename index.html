@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>EduConnect.isuccess - TÃ©lÃ©chargement v1.8.0</title>
+<title>EduConnect.isuccess - Téléchargement v1.8.0</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -72,7 +72,7 @@
         }
         
         .version-badge::before {
-            content: "â— ";
+            content: "● ";
             color: #10B981;
         }
         
@@ -126,7 +126,7 @@
             margin-top: 4px;
         }
         
-        /* DÃ©tection en cours */
+        /* Détection en cours */
         .detecting {
             background: #F5F3FF;
             border-radius: 16px;
@@ -154,7 +154,7 @@
             color: #6B7280;
         }
         
-        /* RÃ©sultat dÃ©tection */
+        /* Résultat détection */
         .detected-result {
             background: #F5F3FF;
             border: 1px solid #DDD6FE;
@@ -276,7 +276,7 @@
         }
         
         .arch-btn.recommended::after {
-            content: "âœ“ RECO";
+            content: "✓ RECO";
             display: block;
             font-size: 0.5rem;
             color: #8B5CF6;
@@ -386,7 +386,7 @@
             line-height: 1.6;
         }
         
-        /* Ã‰tapes iOS dans le bloc de dÃ©tection */
+        /* Étapes iOS dans le bloc de détection */
         .ios-quick-steps {
             margin-top: 14px;
             text-align: left;
@@ -486,7 +486,7 @@
         }
         
         .changelog li::before {
-            content: "â–¸";
+            content: "▸";
             position: absolute;
             left: 0;
             color: #8B5CF6;
@@ -531,36 +531,36 @@
         <div class="logo-section">
             <div class="logo"><img src="logo.png" alt="Logo EduConnect"></div>
             <h1>EduConnect.isuccess</h1>
-            <p class="tagline">Suivi scolaire simplifiÃ©</p>
+            <p class="tagline">Suivi scolaire simplifié</p>
         </div>
         
         <!-- Version -->
-        <div class="version-badge">v1.8.0 â€¢ DerniÃ¨re version</div>
+        <div class="version-badge">v1.8.0 • Dernière version</div>
         
         <!-- QR CODE - PIECE MAITRESSE -->
         <div class="qr-section">
-            <p class="qr-title">ðŸ“± Scanner pour tÃ©lÃ©charger</p>
-            <p class="qr-subtitle">Pointez votre camÃ©ra sur ce code</p>
+            <p class="qr-title">📱 Scanner pour télécharger</p>
+            <p class="qr-subtitle">Pointez votre caméra sur ce code</p>
             <div class="qr-code-container">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://bongaihenri-wq.github.io/educonnect-landing/&color=7C3AED&bgcolor=FFFFFF" 
                      alt="QR Code EduConnect" 
                      id="qrImage">
             </div>
-            <p class="qr-instruction">Scannez ce code avec votre tÃ©lÃ©phone</p>
-            <p class="qr-hint">Le tÃ©lÃ©chargement dÃ©marre automatiquement</p>
+            <p class="qr-instruction">Scannez ce code avec votre téléphone</p>
+            <p class="qr-hint">Le téléchargement démarre automatiquement</p>
         </div>
         
-        <!-- DÃ©tection en cours -->
+        <!-- Détection en cours -->
         <div class="detecting" id="detecting">
             <div class="spinner"></div>
             <p>Analyse de votre appareil...</p>
-            <p style="font-size: 0.75rem; color: #9CA3AF; margin-top: 6px;">DÃ©tection de l'architecture</p>
+            <p style="font-size: 0.75rem; color: #9CA3AF; margin-top: 6px;">Détection de l'architecture</p>
         </div>
         
-        <!-- RÃ©sultat dÃ©tection -->
+        <!-- Résultat détection -->
         <div class="detected-result" id="detectedResult">
-            <div class="detected-icon" id="detectedIcon">ðŸ“±</div>
-            <p class="detected-text" id="detectedText">Appareil dÃ©tectÃ©</p>
+            <div class="detected-icon" id="detectedIcon">📱</div>
+            <p class="detected-text" id="detectedText">Appareil détecté</p>
             <p class="detected-arch" id="detectedArch"></p>
             <a href="#" class="btn-primary" id="primaryDownload" download>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -568,43 +568,43 @@
                     <polyline points="7 10 12 15 17 10"/>
                     <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                TÃ©lÃ©charger maintenant
+                Télécharger maintenant
             </a>
             <p class="file-info" id="fileInfo"></p>
         </div>
         
-        <!-- NOUVEAU : RÃ©sultat dÃ©tection iOS -->
+        <!-- NOUVEAU : Résultat détection iOS -->
         <div class="detected-result" id="iosResult">
-            <div class="detected-icon">ðŸŽ</div>
-            <p class="detected-text">iPhone / iPad dÃ©tectÃ©</p>
-            <p class="detected-arch">Version web â€” aucune installation requise</p>
+            <div class="detected-icon">🍎</div>
+            <p class="detected-text">iPhone / iPad détecté</p>
+            <p class="detected-arch">Version web — aucune installation requise</p>
             <a href="#" class="btn-ios" id="iosPrimaryBtn" target="_blank" rel="noopener">
                  Ouvrir EduConnect
             </a>
             <div class="ios-quick-steps">
                 <div class="ios-quick-step">
                     <span class="step-number">1</span>
-                    <span class="step-text">Touchez <strong>Â« Ouvrir EduConnect Â»</strong> ci-dessus â€” l'app se lance dans Safari</span>
+                    <span class="step-text">Touchez <strong>« Ouvrir EduConnect »</strong> ci-dessus — l'app se lance dans Safari</span>
                 </div>
                 <div class="ios-quick-step">
                     <span class="step-number">2</span>
-                    <span class="step-text">Dans Safari, touchez le bouton <strong>Partager</strong> <em>(le carrÃ© avec une flÃ¨che vers le haut, en bas de l'Ã©cran)</em></span>
+                    <span class="step-text">Dans Safari, touchez le bouton <strong>Partager</strong> <em>(le carré avec une flèche vers le haut, en bas de l'écran)</em></span>
                 </div>
                 <div class="ios-quick-step">
                     <span class="step-number">3</span>
-                    <span class="step-text">Faites dÃ©filer et choisissez <strong>Â« Sur l'Ã©cran d'accueil Â»</strong> â€” l'icÃ´ne EduConnect apparaÃ®t comme une vraie app</span>
+                    <span class="step-text">Faites défiler et choisissez <strong>« Sur l'écran d'accueil »</strong> — l'icône EduConnect apparaît comme une vraie app</span>
                 </div>
                 <div class="safari-warning">
-                    <span class="safari-warning-icon">âš ï¸</span>
-                    <span class="safari-warning-text"><strong>Important :</strong> utilisez <strong>Safari</strong> (le navigateur bleu d'Apple), pas Chrome â€” sinon l'ajout Ã  l'Ã©cran d'accueil ne fonctionnera pas.</span>
+                    <span class="safari-warning-icon">⚠️</span>
+                    <span class="safari-warning-text"><strong>Important :</strong> utilisez <strong>Safari</strong> (le navigateur bleu d'Apple), pas Chrome — sinon l'ajout à l'écran d'accueil ne fonctionnera pas.</span>
                 </div>
             </div>
         </div>
         
         <!-- Error fallback -->
         <div class="error-state" id="errorState">
-            <p>âš ï¸ DÃ©tection impossible</p>
-            <p>Veuillez sÃ©lectionner votre architecture ci-dessous</p>
+            <p>⚠️ Détection impossible</p>
+            <p>Veuillez sélectionner votre architecture ci-dessous</p>
         </div>
         
         <!-- Choix manuel -->
@@ -612,14 +612,14 @@
             <p class="manual-title">Ou choisissez manuellement</p>
             <div class="arch-grid" id="archGrid">
                 <a href="educonnect-arm64-v8a.apk" class="arch-btn" id="btnArm64" download>
-                    <div class="arch-icon">ðŸ“±</div>
+                    <div class="arch-icon">📱</div>
                     <div class="arch-name">ARM64</div>
-                    <div class="arch-detail">v8a â€¢ Moderne</div>
+                    <div class="arch-detail">v8a • Moderne</div>
                 </a>
                 <a href="educonnect-armeabi-v7a.apk" class="arch-btn" id="btnArmv7" download>
-                    <div class="arch-icon">ðŸ“²</div>
+                    <div class="arch-icon">📲</div>
                     <div class="arch-name">ARMv7</div>
-                    <div class="arch-detail">32-bit â€¢ Universel</div>
+                    <div class="arch-detail">32-bit • Universel</div>
                 </a>
                             </div>
         </div>
@@ -627,7 +627,7 @@
         <!-- NOUVEAU : Section iOS / PWA -->
         <div class="ios-section">
             <div class="ios-card" id="iosCard">
-                <p class="ios-title">ðŸŽ iPhone / iPad</p>
+                <p class="ios-title">🍎 iPhone / iPad</p>
                 <p class="ios-subtitle">Utilisez EduConnect directement, sans installation</p>
                 <a href="#" class="btn-ios" id="iosOpenApp" target="_blank" rel="noopener">
                      Ouvrir l'app web
@@ -635,19 +635,19 @@
                 <div class="ios-quick-steps">
                     <div class="ios-quick-step">
                         <span class="step-number">1</span>
-                        <span class="step-text">Touchez <strong>Â« Ouvrir l'app web Â»</strong> â€” EduConnect se lance dans Safari</span>
+                        <span class="step-text">Touchez <strong>« Ouvrir l'app web »</strong> — EduConnect se lance dans Safari</span>
                     </div>
                     <div class="ios-quick-step">
                         <span class="step-number">2</span>
-                        <span class="step-text">Touchez <strong>Partager</strong> <em>(carrÃ© avec flÃ¨che vers le haut, en bas de l'Ã©cran)</em></span>
+                        <span class="step-text">Touchez <strong>Partager</strong> <em>(carré avec flèche vers le haut, en bas de l'écran)</em></span>
                     </div>
                     <div class="ios-quick-step">
                         <span class="step-number">3</span>
-                        <span class="step-text">Choisissez <strong>Â« Sur l'Ã©cran d'accueil Â»</strong></span>
+                        <span class="step-text">Choisissez <strong>« Sur l'écran d'accueil »</strong></span>
                     </div>
                     <div class="safari-warning">
-                        <span class="safari-warning-icon">âš ï¸</span>
-                        <span class="safari-warning-text"><strong>Safari uniquement</strong> â€” dans Chrome iPhone, l'ajout Ã  l'Ã©cran d'accueil n'est pas disponible.</span>
+                        <span class="safari-warning-icon">⚠️</span>
+                        <span class="safari-warning-text"><strong>Safari uniquement</strong> — dans Chrome iPhone, l'ajout à l'écran d'accueil n'est pas disponible.</span>
                     </div>
                 </div>
             </div>
@@ -655,22 +655,22 @@
         
         <!-- Changelog -->
         <div class="changelog">
-                       <h2>ðŸ“ NouveautÃ©s v1.8.0</h2>
+                       <h2>📝 Nouveautés v1.8.0</h2>
             <ul>
-                <li>ðŸ” Tri alphabÃ©tique Ã©lÃ¨ves, fix affichage, nettoyage MatiÃ¨re, fix trimestres</li>
+                <li>🔐 Tri alphabétique élèves, fix affichage, nettoyage Matière, fix trimestres</li>
             </ul>
         </div>
         
         <!-- Footer -->
         <div class="footer">
-            <p>Â© 2026 EduConnect.isuccess â€¢ Tous droits rÃ©servÃ©s</p>
-           <p style="margin-top: 3px;">v1.8.0+17 â€¢ Build 16</p>
+            <p>© 2026 EduConnect.isuccess • Tous droits réservés</p>
+           <p style="margin-top: 3px;">v1.8.0+1019</p>
         </div>
     </div>
 
     <script>
         // ===== NOUVEAU : URL de la PWA (app web iOS) =====
-        // TODO : mettre Ã  jour si l'URL de la PWA dÃ©ployÃ©e est diffÃ©rente
+        // TODO : mettre à jour si l'URL de la PWA déployée est différente
         const PWA_URL = 'https://bongaihenri-wq.github.io/educonnect-app/';
 
         // Configuration des APKs
@@ -678,20 +678,19 @@
             arm64: {
                 file: 'educonnect-arm64-v8a.apk',
                 name: 'ARM64 (v8a)',
-                desc: 'Appareil moderne dÃ©tectÃ©',
+                desc: 'Appareil moderne détecté',
                 size: '~22 MB',
-                icon: 'ðŸš€',
+                icon: '🚀',
                 modern: true
             },
             armv7: {
                 file: 'educonnect-armeabi-v7a.apk',
                 name: 'ARMv7 (32-bit)',
-                desc: 'TÃ©lÃ©phone ancien dÃ©tectÃ©',
+                desc: 'Téléphone ancien détecté',
                 size: '~20 MB',
-                icon: 'ðŸ“±',
+                icon: '📱',
                 modern: false
-            }
-        }, 300);
+            }, 300);
         }
 
         function detectArchitecture() {
@@ -735,9 +734,9 @@
             
             detectedIcon.textContent = config.icon;
             detectedText.textContent = config.desc;
-            detectedArch.textContent = 'DÃ©tection automatique : ' + config.name.toLowerCase();
+            detectedArch.textContent = 'Détection automatique : ' + config.name.toLowerCase();
             primaryBtn.href = config.file;
-            fileInfo.textContent = 'ðŸ“¦ ' + config.size + ' â€¢ Android 8+';
+            fileInfo.textContent = '📦 ' + config.size + ' • Android 8+';
             
             result.classList.add('show');
             
@@ -763,12 +762,12 @@
         }
 
         window.addEventListener('load', function() {
-            // Lien du bouton iOS permanent (section dÃ©diÃ©e)
+            // Lien du bouton iOS permanent (section dédiée)
             document.getElementById('iosOpenApp').href = PWA_URL;
 
             setTimeout(() => {
                 try {
-                    // iOS dÃ©tectÃ© â†’ on propose la PWA, sinon logique Android existante
+                    // iOS détecté → on propose la PWA, sinon logique Android existante
                     if (isIOSDevice()) {
                         showIOSResult();
                         return;
